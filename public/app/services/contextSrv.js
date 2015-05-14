@@ -9,7 +9,7 @@ function (angular, _, store, config) {
 
   var module = angular.module('grafana.services');
 
-  module.service('contextSrv', function($rootScope, $timeout) {
+  module.service('contextSrv', function($rootScope, $timeout, $location, alertSrv) {
     var self = this;
 
     function User() {
@@ -44,6 +44,14 @@ function (angular, _, store, config) {
       return this.hasRole('Admin');
     };
 
+      this.checkPermissions = function() {
+          if (this.isViewer) {
+              alertSrv.set('Don\'t have permission', 'You are "Viewer" user role and don\'t have permission to this page', 'warning', 7001);
+              $location.path('');
+              return;
+          }
+      };
+
     this.version = config.buildInfo.version;
     this.lightTheme = false;
     this.user = new User();
@@ -61,5 +69,6 @@ function (angular, _, store, config) {
     }
 
     this.isEditor = this.hasRole('Editor') || this.hasRole('Admin');
+    this.isViewer = this.hasRole('Viewer');
   });
 });

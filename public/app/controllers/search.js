@@ -8,7 +8,7 @@ function (angular, _, config) {
 
   var module = angular.module('grafana.controllers');
 
-  module.controller('SearchCtrl', function($scope, $location, $timeout, backendSrv) {
+  module.controller('SearchCtrl', function($scope, $location, $timeout, backendSrv, contextSrv) {
 
     $scope.init = function() {
       $scope.giveSearchFocus = 0;
@@ -120,6 +120,10 @@ function (angular, _, config) {
     $scope.newDashboard = function() {
       $location.url('dashboard/new');
     };
+
+      $scope.hasEditPermission = function() {
+          return !contextSrv.isViewer;
+      }
 
   });
 
