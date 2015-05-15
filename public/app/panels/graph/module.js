@@ -23,13 +23,13 @@ function (angular, app, $, _, kbn, moment, TimeSeries, PanelMeta) {
     };
   });
 
-  module.controller('GraphCtrl', function($scope, $rootScope, panelSrv, annotationsSrv, panelHelper, $q) {
+  module.controller('GraphCtrl', function($scope, $rootScope, panelSrv, annotationsSrv, panelHelper, $q, contextSrv) {
 
     $scope.panelMeta = new PanelMeta({
       panelName: 'Graph',
       editIcon:  "fa fa-bar-chart",
       fullscreen: true,
-      metricsEditor: true
+      metricsEditor: contextSrv.isEditor
     });
 
     $scope.panelMeta.addEditorTab('Axes & Grid', 'app/panels/graph/axisEditor.html');
