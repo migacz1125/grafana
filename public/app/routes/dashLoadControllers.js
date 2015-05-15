@@ -42,7 +42,7 @@ function (angular, _, kbn, moment, $) {
     });
   });
 
-  module.controller('DashFromImportCtrl', function($scope, $location, alertSrv) {
+  module.controller('DashFromImportCtrl', function($scope, $location, alertSrv, contextSrv) {
     if (!window.grafanaImportDashboard) {
       alertSrv.set('Not found', 'Cannot reload page with unsaved imported dashboard', 'warning', 7000);
       $location.path('');
@@ -51,13 +51,15 @@ function (angular, _, kbn, moment, $) {
     $scope.initDashboard({meta: {}, model: window.grafanaImportDashboard }, $scope);
   });
 
-  module.controller('NewDashboardCtrl', function($scope) {
+  module.controller('NewDashboardCtrl', function($scope, contextSrv) {
+      contextSrv.checkPermissions();
+
     $scope.initDashboard({
-      meta: {},
+      meta: { canStar: false, canShare: false },
       model: {
         title: "New dashboard",
-      rows: [{ height: '250px', panels:[] }]
-      },
+        rows: [{ height: '250px', panels:[] }]
+      }
     }, $scope);
   });
 

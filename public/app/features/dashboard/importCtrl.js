@@ -7,9 +7,11 @@ function (angular, _) {
 
   var module = angular.module('grafana.controllers');
 
-  module.controller('DashboardImportCtrl', function($scope, $http, backendSrv, datasourceSrv) {
+  module.controller('DashboardImportCtrl', function($scope, $http, backendSrv, datasourceSrv, contextSrv) {
 
     $scope.init = function() {
+        contextSrv.checkPermissions();
+
       $scope.datasources = [];
       $scope.sourceName = 'grafana';
       $scope.destName = 'grafana';
