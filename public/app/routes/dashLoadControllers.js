@@ -42,7 +42,7 @@ function (angular, _, kbn, moment, $) {
     });
   });
 
-  module.controller('DashFromImportCtrl', function($scope, $location, alertSrv, contextSrv) {
+  module.controller('DashFromImportCtrl', function($scope, $location, alertSrv) {
     if (!window.grafanaImportDashboard) {
       alertSrv.set('Not found', 'Cannot reload page with unsaved imported dashboard', 'warning', 7000);
       $location.path('');

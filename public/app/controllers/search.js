@@ -140,8 +140,7 @@ function (angular, _, config) {
 
       $scope.hasEditPermission = function() {
           return !contextSrv.isViewer;
-      }
-
+      };
   });
 
   module.directive('xngFocus', function() {
